@@ -12,27 +12,33 @@ pipeline {
     }
 
     stages {
-        stage('Checkout sur la branche main') {
+        stage('Checkout sur la branche master') {
             steps {
-                git branch: 'main', url: 'https://github.com/Astray63/Jenkins-CICD.git'
+                git branch: 'master', url: 'https://github.com/Astray63/Jenkins-CICD.git'
             }
         }
 
         stage('Install dependencies') {
             steps {
-                sh 'npm install'
+                dir('mon-projet-angular') {
+                    sh 'npm install'
+                }
             }
         }
 
         stage('Test') {
             steps {
-                sh 'npm run test -- --watch=false --browsers=ChromeHeadless'
+                dir('mon-projet-angular') {
+                    sh 'npm run test -- --watch=false --browsers=ChromeHeadless'
+                }
             }
         }
 
         stage('Build') {
             steps {
-                sh 'npm run build -- --configuration=production'
+                dir('mon-projet-angular') {
+                    sh 'npm run build -- --configuration=production'
+                }
             }
         }
 
@@ -54,7 +60,7 @@ pipeline {
 
         stage('Archive Build Artifacts') {
             steps {
-                archiveArtifacts artifacts: '${DIST_DIR}/**/*'
+                archiveArtifacts artifacts: 'mon-projet-angular/${DIST_DIR}/**/*'
             }
         }
     }

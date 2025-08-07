@@ -1,7 +1,7 @@
 
 FROM node:18 as build
 WORKDIR /app
-COPY . .
+COPY mon-projet-angular/ .
 RUN npm install
 RUN npm run build -- --configuration=production
 
