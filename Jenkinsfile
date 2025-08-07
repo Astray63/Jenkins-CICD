@@ -14,7 +14,7 @@ pipeline {
     stages {
         stage('Checkout sur la branche main') {
             steps {
-                git branch: 'main', url: 'https://github.com/mossbAddiJavaVault/Jenkins_example.git'
+                git branch: 'main', url: 'https://github.com/Astray63/Jenkins-CICD.git'
             }
         }
 
