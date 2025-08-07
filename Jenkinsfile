@@ -14,7 +14,15 @@ pipeline {
     stages {
         stage('Checkout sur la branche master') {
             steps {
-                git branch: 'master', url: 'https://github.com/Astray63/Jenkins-CICD.git'
+                deleteDir()
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: '*/master']],
+                    doGenerateSubmoduleConfigurations: false,
+                    extensions: [[$class: 'CleanBeforeCheckout']],
+                    submoduleCfg: [],
+                    userRemoteConfigs: [[url: 'https://github.com/Astray63/Jenkins-CICD.git']]
+                ])
             }
         }
 
